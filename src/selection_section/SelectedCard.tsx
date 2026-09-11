@@ -10,6 +10,7 @@ import { RiJavaLine } from "react-icons/ri";
 import { SiTailwindcss } from "react-icons/si";
 import { FaDocker } from "react-icons/fa";
 import type { IStack } from '../types/StackType';
+import { IoClose } from "react-icons/io5";
 
 
 interface SelectedCardProps {
@@ -38,23 +39,20 @@ const SelectedCard = ({stack, selectedStacks, setSelectedStacks}: SelectedCardPr
      <div>
        <div className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-2xl shadow-sm max-w-sm">
          <div className="flex items-center space-x-3">
-           {/* Svelte Icon Container */}
            <div className="text-[#FF3E00]">
              {Allicons(stack.id)}
            </div> 
 
-           {/* Text Container */}
            <div className="flex flex-col">
              <span className="font-bold text-slate-800 text-base leading-tight">
-               Svelte
+               {stack.name}
              </span>
              <span className="text-xs font-medium text-slate-400 mt-0.5">
-               Frontend
+               {stack.category}
              </span>
            </div>
          </div>
-
-         {/* Right section: Close Button */}
+         
          <button
            type="button"
            className="text-slate-400 hover:text-slate-600 transition-colors p-1 rounded-md focus:outline-none"
