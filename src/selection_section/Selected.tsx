@@ -1,5 +1,8 @@
 import type { IStack } from '../types/StackType';
 import SelectedCard from './SelectedCard';
+import { toast, Bounce } from "react-toastify";
+
+
 
 interface SelectedProps {
    selectedStacks: IStack[];
@@ -13,6 +16,17 @@ const Selected = ({selectedStacks, setSelectedStacks, addButtonState, setAddButt
   const handleRemoveAll = () => {
      setSelectedStacks([]);
      setAddButtonState(false);
+     toast.info("All Stacks Removed Successfully!", {
+       position: "top-right",
+       autoClose: 5000,
+       hideProgressBar: false,
+       closeOnClick: false,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+       theme: "light",
+       transition: Bounce,
+     });
   }
 
    return (
