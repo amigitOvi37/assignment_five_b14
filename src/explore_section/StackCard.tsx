@@ -11,18 +11,18 @@ import { SiTypescript } from "react-icons/si";
 import { RiJavaLine } from "react-icons/ri";
 import { SiTailwindcss } from "react-icons/si";
 import { FaDocker } from "react-icons/fa";
-import { useState } from 'react';
 
 
 interface StackCardProps {
    stack: IStack;
    selectedStacks: IStack[];
-   currentStack: IStack | null;
    setSelectedStacks: React.Dispatch<React.SetStateAction<IStack[]>>;
    setCurrentStack: React.Dispatch<React.SetStateAction<IStack | null>>;
 }
 
-const StackCard = ({stack, selectedStacks, currentStack, setSelectedStacks, setCurrentStack}: StackCardProps) => {
+const StackCard = ({stack, selectedStacks, setSelectedStacks, setCurrentStack}: StackCardProps) => {
+
+   const isSelected = selectedStacks.some((selectedStack) => selectedStack.id === stack.id);
 
    const Allicons = (stID: string) => {
       if (stID === 'react') return <FaReact className="w-10 h-10 animate-spin-slow text-sky-400" />
@@ -38,12 +38,9 @@ const StackCard = ({stack, selectedStacks, currentStack, setSelectedStacks, setC
       else return <FaDocker className="w-10 h-10 animate-spin-slow text-sky-800" />
    }
 
-   const [disabled, setDisabled] = useState(false);
-
    const handleAddStack = () => {
       setCurrentStack(stack)
       setSelectedStacks([...selectedStacks, stack])
-      setDisabled(true)
    }
   
    return (
@@ -53,7 +50,9 @@ const StackCard = ({stack, selectedStacks, currentStack, setSelectedStacks, setC
            <div className="p-2 rounded-xl text-sky-400">
              {Allicons(stack.id)}
            </div>
-           <span className={`px-3 py-1 text-xs font-semibold ${stack.id === 'react' ? 'text-sky-600' : stack.id === 'vue' ? 'text-green-600' : stack.id === 'svelte' ? 'text-red-600' : stack.id === 'nextjs' ? 'text-black' : stack.id === 'nodejs' ? 'text-green-600' : stack.id === 'redis' ? 'text-red-800' : stack.id === 'javascript' ? 'text-yellow-500' : stack.id === 'typescript' ? 'text-sky-700' : stack.id === 'java' ? 'text-red-500' : stack.id === 'tailwindcss' ? 'text-sky-400' : 'text-sky-800'} bg-sky-50 rounded-full`}>
+           <span
+             className={`px-3 py-1 text-xs font-semibold ${stack.id === "react" ? "text-sky-600" : stack.id === "vue" ? "text-green-600" : stack.id === "svelte" ? "text-red-600" : stack.id === "nextjs" ? "text-black" : stack.id === "nodejs" ? "text-green-600" : stack.id === "redis" ? "text-red-800" : stack.id === "javascript" ? "text-yellow-500" : stack.id === "typescript" ? "text-sky-700" : stack.id === "java" ? "text-red-500" : stack.id === "tailwindcss" ? "text-sky-400" : "text-sky-800"} bg-sky-50 rounded-full`}
+           >
              {stack.badge}
            </span>
          </div>
@@ -82,12 +81,15 @@ const StackCard = ({stack, selectedStacks, currentStack, setSelectedStacks, setC
            </div>
          </div>
 
-         <button 
-          onClick={handleAddStack}
-          className={`${disabled ? 'bg-gray-400 cursor-not-allowed w-full py-3 px-4 text-white font-medium text-sm rounded-xl transition duration-200 shadow-sm active:scale-[0.99]' : 'w-full py-3 px-4 bg-[#0B0F19] hover:bg-slate-800 text-white font-medium text-sm rounded-xl transition duration-200 shadow-sm active:scale-[0.99]'} `}
-          >
-           Add to Stack
-         </button>
+          <button 
+           onClick={handleAddStack}
+           disabled={isSelected}
+           type="button"
+           className={`${isSelected ? 'bg-gray-400 cursor-not-allowed w-full py-3 px-4 text-white font-medium text-sm rounded-xl transition duration-200 shadow-sm active:scale-[0.99]' : 'w-full py-3 px-4 bg-[#0B0F19] hover:bg-slate-800 text-white font-medium text-sm rounded-xl transition duration-200 shadow-sm active:scale-[0.99]'}`}
+           >
+            {isSelected ? 'Added' : 'Add to Stack'}
+          </button>
+
        </div>
      </div>
    );

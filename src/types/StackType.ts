@@ -8,4 +8,9 @@ export interface IStack {
   difficulty: string;
   badge: string;
 }
+
+export interface Istatus {
+  id: string;
+  isSelected: boolean;
+}
  

@@ -7,11 +7,11 @@ const Nav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "Technologies", href: "#" },
-    { name: "Projects", href: "#" },
-    { name: "About", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Home", href: "#home" },
+    { name: "Technologies", href: "#explore" },
+    { name: "Projects", href: null },
+    { name: "About", href: null },
+    { name: "Contact", href: null },
   ];
 
   return (
@@ -61,7 +61,7 @@ const Nav = () => {
             </div>
 
             <div className="shrink-0 flex items-center">
-              <a href="#" className="flex items-center gap-2">
+              <a href="#home" className="flex items-center gap-2">
                 <img
                   src={logoImg}
                   alt="DevStack Logo"
@@ -73,16 +73,31 @@ const Nav = () => {
             <nav className="hidden md:flex items-center space-x-8">
               {navLinks.map((link) => {
                 const isActive = activeTab === link.name;
+                const linkClassName = `text-base font-medium transition-colors duration-200 ${
+                  isActive
+                    ? "text-[#E62E7B] font-semibold"
+                    : "text-slate-600 hover:text-slate-900"
+                }`;
+
+                if (!link.href) {
+                  return (
+                    <button
+                      key={link.name}
+                      type="button"
+                      onClick={() => setActiveTab(link.name)}
+                      className={linkClassName}
+                    >
+                      {link.name}
+                    </button>
+                  );
+                }
+
                 return (
                   <a
                     key={link.name}
                     href={link.href}
                     onClick={() => setActiveTab(link.name)}
-                    className={`text-base font-medium transition-colors duration-200 ${
-                      isActive
-                        ? "text-[#E62E7B] font-semibold"
-                        : "text-slate-600 hover:text-slate-900"
-                    }`}
+                    className={linkClassName}
                   >
                     {link.name}
                   </a>
@@ -91,69 +106,89 @@ const Nav = () => {
             </nav>
 
             <div className="hidden md:flex items-center space-x-6">
-              <a
-                href="#"
+              <button
+                type="button"
                 className="text-base font-medium text-slate-700 hover:text-slate-900 transition-colors"
               >
                 Sign In
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
+                type="button"
                 className="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-base font-medium text-white bg-linear-to-r from-[#E62E7B] to-[#E62E7B] hover:opacity-90 shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Sign Up
-              </a>
+              </button>
             </div>
 
             <div className="flex md:hidden items-center space-x-3">
-              <a
-                href="#"
+              <button
+                type="button"
                 className="text-sm font-semibold text-slate-700 hover:text-slate-900"
               >
                 Sign In
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
+                type="button"
                 className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-semibold text-white bg-[#E62E7B] hover:opacity-90 transition-all shadow-sm"
               >
                 Sign Up
-              </a>
+              </button>
             </div>
           </div>
         </div>
 
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white border-b border-gray-100 px-4 pt-2 pb-6 space-y-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => {
-                  setActiveTab(link.name);
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  activeTab === link.name
-                    ? "text-[#E62E7B] bg-pink-50 font-semibold"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-gray-50"
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const linkClassName = `block px-3 py-2 rounded-md text-base font-medium ${
+                activeTab === link.name
+                  ? "text-[#E62E7B] bg-pink-50 font-semibold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-gray-50"
+              }`;
+
+              if (!link.href) {
+                return (
+                  <button
+                    key={link.name}
+                    type="button"
+                    onClick={() => {
+                      setActiveTab(link.name);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={linkClassName}
+                  >
+                    {link.name}
+                  </button>
+                );
+              }
+
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => {
+                    setActiveTab(link.name);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={linkClassName}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
             <div className="pt-4 border-t border-gray-100 flex flex-col space-y-3">
-              <a
-                href="#"
+              <button
+                type="button"
                 className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-gray-50 text-center"
               >
                 Sign In
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
+                type="button"
                 className="block text-center py-2.5 rounded-full text-base font-medium text-white bg-[#E62E7B] hover:opacity-90 transition-all"
               >
                 Sign Up
-              </a>
+              </button>
             </div>
           </div>
         )}

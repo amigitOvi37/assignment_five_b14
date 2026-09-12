@@ -12,14 +12,16 @@ import { FaDocker } from "react-icons/fa";
 import type { IStack } from '../types/StackType';
 import { IoClose } from "react-icons/io5";
 
-
 interface SelectedCardProps {
    stack: IStack;
    selectedStacks: IStack[];
    setSelectedStacks: React.Dispatch<React.SetStateAction<IStack[]>>;
+   addButtonState: boolean;
+   setAddButtonState: React.Dispatch<React.SetStateAction<boolean>>;
+
 }
 
-const SelectedCard = ({stack, selectedStacks, setSelectedStacks}: SelectedCardProps) => {
+const SelectedCard = ({stack, selectedStacks, setSelectedStacks, addButtonState, setAddButtonState}: SelectedCardProps) => {
 
    const Allicons = (stID: string) => {
       if (stID === 'react') return <FaReact className="w-9 h-9 text-sky-400" />
@@ -35,8 +37,13 @@ const SelectedCard = ({stack, selectedStacks, setSelectedStacks}: SelectedCardPr
       else return <FaDocker className="w-9 h-9 text-sky-800" />
    }
 
+   const handleRemoveStack = () => {
+      setSelectedStacks(selectedStacks.filter((st) => st.id !== stack.id))
+      setAddButtonState(!addButtonState)
+    }
+
    return (
-     <div>
+     <div className='mt-2.5'>
        <div className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-2xl shadow-sm max-w-sm">
          <div className="flex items-center space-x-3">
            <div className="text-[#FF3E00]">
@@ -54,6 +61,7 @@ const SelectedCard = ({stack, selectedStacks, setSelectedStacks}: SelectedCardPr
          </div>
          
          <button
+           onClick={handleRemoveStack}
            type="button"
            className="text-slate-400 hover:text-slate-600 transition-colors p-1 rounded-md focus:outline-none"
            aria-label="Close"

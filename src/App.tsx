@@ -1,4 +1,4 @@
-import { Suspense } from "react"
+import { Suspense, useMemo } from "react"
 import Nav from "./components/Nav"
 import Hero from "./components/Hero"
 import type{IStack} from "./types/StackType"
@@ -19,14 +19,17 @@ function App() {
 
   const [selectedStacks, setSelectedStacks] = useState<IStack[]>([]);
   const [currentStack, setCurrentStack] = useState<IStack | null>(null);
+  const [addButtonState, setAddButtonState] = useState(false);
+
+  const stacksPromise = useMemo(() => getStacks(), []);
 
   return (
-    <div className="">
+    <div id="home" className="">
       <Nav />
       <Hero />
       <ExploreHeader />
       <Suspense fallback={<div>Loading stacks...</div>}>
-        <Available stacksPromise={getStacks()} selectedStacks={selectedStacks} currentStack={currentStack} setSelectedStacks={setSelectedStacks} setCurrentStack={setCurrentStack} />
+        <Available stacksPromise={stacksPromise} selectedStacks={selectedStacks} currentStack={currentStack} setSelectedStacks={setSelectedStacks} setCurrentStack={setCurrentStack} addButtonState={addButtonState} setAddButtonState={setAddButtonState}  />
       </Suspense>
     </div>
   )
