@@ -16,14 +16,16 @@ interface AvailableProps {
 const Available = ({stacksPromise, selectedStacks, setSelectedStacks, setCurrentStack, addButtonState, setAddButtonState}:AvailableProps) => {
    const stacks = use(stacksPromise);
    return (
-      <div className="grid-cols-4 grid gap-6 container mx-auto">
-        <div className="col-span-3 grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 container mx-auto px-4 sm:px-0">
+        <div className="order-2 lg:order-1 lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {stacks.map((stack) => (
            <StackCard key={stack.id} stack={stack} selectedStacks={selectedStacks} setSelectedStacks={setSelectedStacks} setCurrentStack={setCurrentStack} />
          ))}
         </div>
-       <Selected selectedStacks={selectedStacks} setSelectedStacks={setSelectedStacks} addButtonState={addButtonState} setAddButtonState={setAddButtonState} />
-     </div>
+        <div className="order-1 lg:order-2 lg:col-span-1">
+          <Selected selectedStacks={selectedStacks} setSelectedStacks={setSelectedStacks} addButtonState={addButtonState} setAddButtonState={setAddButtonState} />
+        </div>
+      </div>
    );
 };
 
