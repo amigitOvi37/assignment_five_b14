@@ -11,6 +11,8 @@ import { SiTailwindcss } from "react-icons/si";
 import { FaDocker } from "react-icons/fa";
 import type { IStack } from '../types/StackType';
 import { IoClose } from "react-icons/io5";
+import { toast, Bounce } from "react-toastify";
+
 
 interface SelectedCardProps {
    stack: IStack;
@@ -40,6 +42,17 @@ const SelectedCard = ({stack, selectedStacks, setSelectedStacks, addButtonState,
    const handleRemoveStack = () => {
       setSelectedStacks(selectedStacks.filter((st) => st.id !== stack.id))
       setAddButtonState(!addButtonState)
+      toast.success("Stack Removed Successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
 
    return (
