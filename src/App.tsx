@@ -5,6 +5,7 @@ import type{IStack} from "./types/StackType"
 import ExploreHeader from "./explore_section/ExploreHeader.tsx"
 import Available from "./explore_section/Available.tsx"
 import { useState } from "react"  
+import Footer from "./components/Footer.tsx"
 
 
 const getStacks = async (): Promise<IStack[]> => {
@@ -21,7 +22,7 @@ function App() {
   const [currentStack, setCurrentStack] = useState<IStack | null>(null);
   const [addButtonState, setAddButtonState] = useState(false);
 
-  const stacksPromise = useMemo(() => getStacks(), []);
+  const stacksPromise = useMemo(() => getStacks(), []); //create the Promise once and keep the same Promise between renders(prevents unnecessary re-renders)
 
   return (
     <div id="home" className="">
@@ -31,6 +32,7 @@ function App() {
       <Suspense fallback={<div>Loading stacks...</div>}>
         <Available stacksPromise={stacksPromise} selectedStacks={selectedStacks} currentStack={currentStack} setSelectedStacks={setSelectedStacks} setCurrentStack={setCurrentStack} addButtonState={addButtonState} setAddButtonState={setAddButtonState}  />
       </Suspense>
+      <Footer />
     </div>
   )
 }
