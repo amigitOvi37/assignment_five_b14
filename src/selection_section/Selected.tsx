@@ -14,10 +14,10 @@ const Selected = ({selectedStacks, setSelectedStacks, addButtonState, setAddButt
      setSelectedStacks([]);
      setAddButtonState(false);
   }
-  
+
    return (
      <div>
-       <div className="w-full max-w-sm rounded-4xl bg-white p-8 shadow-lg border-gray-100">
+       <div className="w-full max-w-sm rounded-4xl bg-white p-8 shadow-lg border-gray-300 border-2">
          <h2 className="text-2xl font-bold text-[#0B1527]">Your Stack</h2>
 
          <p className={selectedStacks.length === 0 ? "mt-1 text-base text-[#8D9BB0]" : "hidden"}>

@@ -6,6 +6,8 @@ import ExploreHeader from "./explore_section/ExploreHeader.tsx"
 import Available from "./explore_section/Available.tsx"
 import { useState } from "react"  
 import Footer from "./components/Footer.tsx"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 
 const getStacks = async (): Promise<IStack[]> => {
@@ -33,6 +35,18 @@ function App() {
         <Available stacksPromise={stacksPromise} selectedStacks={selectedStacks} currentStack={currentStack} setSelectedStacks={setSelectedStacks} setCurrentStack={setCurrentStack} addButtonState={addButtonState} setAddButtonState={setAddButtonState}  />
       </Suspense>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   )
 }

@@ -12,6 +12,8 @@ import { RiJavaLine } from "react-icons/ri";
 import { SiTailwindcss } from "react-icons/si";
 import { FaDocker } from "react-icons/fa";
 
+import { toast, Bounce } from "react-toastify";
+
 
 interface StackCardProps {
    stack: IStack;
@@ -41,6 +43,17 @@ const StackCard = ({stack, selectedStacks, setSelectedStacks, setCurrentStack}: 
    const handleAddStack = () => {
       setCurrentStack(stack)
       setSelectedStacks([...selectedStacks, stack])
+      toast.success("Stack Added Successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
    }
   
    return (
@@ -81,18 +94,17 @@ const StackCard = ({stack, selectedStacks, setSelectedStacks, setCurrentStack}: 
            </div>
          </div>
 
-          <button 
+         <button
            onClick={handleAddStack}
            disabled={isSelected}
            type="button"
-           className={`${isSelected ? 'bg-gray-400 cursor-not-allowed w-full py-3 px-4 text-white font-medium text-sm rounded-xl transition duration-200 shadow-sm active:scale-[0.99]' : 'w-full py-3 px-4 bg-[#0B0F19] hover:bg-slate-800 text-white font-medium text-sm rounded-xl transition duration-200 shadow-sm active:scale-[0.99]'}`}
-           >
-            {isSelected ? 'Added' : 'Add to Stack'}
+           className={`${isSelected ? "bg-gray-400 cursor-not-allowed w-full py-3 px-4 text-white font-medium text-sm rounded-xl transition duration-200 shadow-sm active:scale-[0.99]" : "w-full py-3 px-4 bg-[#0B0F19] hover:bg-slate-800 text-white font-medium text-sm rounded-xl transition duration-200 shadow-sm active:scale-[0.99]"}`}
+         >
+{isSelected ? "Added" : "Add to Stack"}
           </button>
-
-       </div>
-     </div>
-   );
+        </div>
+      </div>
+    );
 };
 
 export default StackCard;
