@@ -57,8 +57,8 @@ const StackCard = ({stack, selectedStacks, setSelectedStacks, setCurrentStack}: 
    }
   
    return (
-      <div className="transition-transform duration-300 ease-in-out hover:translate-y-1 hover:shadow-md">
-        <div className="max-w-sm rounded-3xl bg-white p-6 shadow-sm border border-gray-100 flex flex-col justify-between font-sans">
+      <div className="transition-transform duration-300 ease-in-out hover:translate-y-1 hover:rounded-3xl max-w-sm">
+        <div className="max-w-sm rounded-3xl bg-white p-6 shadow-sm border border-gray-300 flex flex-col justify-between font-sans">
          <div className="flex items-center justify-between mb-6">
            <div className="p-2 rounded-xl text-sky-400">
              {Allicons(stack.id)}
